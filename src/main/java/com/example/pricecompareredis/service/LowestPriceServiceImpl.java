@@ -9,13 +9,13 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class LowestPriceServiceImpl implements LowestPriceService{
 
     private  final RedisTemplate<String, String> myProductPriceRedis;
+    private final ObjectMapper objectMapper;
 
     @Override
     public Set getZsetValue(String key) {
@@ -80,7 +80,6 @@ public class LowestPriceServiceImpl implements LowestPriceService{
             List<Product> productList = new ArrayList<>();
 
             productPriceList.forEach(productPrice->{
-                ObjectMapper objectMapper = new ObjectMapper();
                 // [{"value": "UUID"}, {"score": 11000}, ...]
                 Map<String, Object> productPriceMap = objectMapper.convertValue(productPrice, Map.class);
                 var product = Product.builder()
