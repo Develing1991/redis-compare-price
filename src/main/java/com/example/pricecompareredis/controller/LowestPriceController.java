@@ -15,7 +15,7 @@ public class LowestPriceController {
 
     private final LowestPriceServiceImpl lowestPriceService;
 
-    @GetMapping("/getZsetValue")
+    @GetMapping(path = "/getZsetValue")
     public Set getZsetValue(String key){
         return lowestPriceService.getZsetValue(key);
     }
